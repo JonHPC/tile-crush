@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CurrentScore from './CurrentScore';
+import Hand from './Hand';
 
 const GameBoard = () => {
   const [hand, setHand] = useState([]);
@@ -14,6 +15,27 @@ const GameBoard = () => {
     ['O', 'X', 'O'],
     ['O', 'X', 'X']
   ]);
+  /*
+  TODO:
+  - Create variable to designate # of tile types
+  - Create variable to specify how many sets of 3 tiles there will be
+  - Create function to generate a stack with the tiles shuffled
+    - This fn will also populate the board with tiles from the stack
+    - As each tile is clicked, it is removed and another tile under it is revealed
+  -Game over has 2 conditions:
+    -Lose: Your hand has 7 tiles
+    -Win: Your board is cleared
+  -Backend:
+    -POST scores to leaderboard
+    -GET scores from leaderboard
+    - POST request after each move
+      -payload will have: current score, current board, current hand
+    - if page refreshes, GET the current game
+    - Need button to create a New Game
+  
+  */
+
+
 
   // const generateRandomBoard = () => {
   //   const updatedBoard = [...board];
@@ -43,6 +65,8 @@ const GameBoard = () => {
       //if a tile has a count of 3, tag those for removal
       if(count[el] === 3){
         tileToRemove = el;
+        let newScore = score + 100;
+        setScore(newScore);
       }
     })
 
@@ -78,7 +102,7 @@ const GameBoard = () => {
   
   return (
     <div>
-    <CurrentScore score={score} />
+      <CurrentScore score={score} />
       {board.map((row, rowIndex) => (
         <div key={rowIndex}>
           {row.map((col, colIndex) => (
@@ -88,6 +112,7 @@ const GameBoard = () => {
           ))}
         </div>
       ))}
+      <Hand hand={hand} />
     </div>
   );
 };
