@@ -1,12 +1,12 @@
 import './App.css';
 import Header from './components/Header';
-import CurrentScore from './components/CurrentScore';
+import GameBoard from './components/GameBoard';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <CurrentScore />
+      <GameBoard />
     </div>
   );
 }
